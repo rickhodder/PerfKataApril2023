@@ -2,6 +2,11 @@ namespace PerfKataApril2023.Tests;
 
 public class StringExtensionsTests
 {
+     const string _smallGrid = @"1 2 3 4
+    5 6 7 8
+    9 10 11 12
+    13 14 15 16";
+    
     private const string _grid = @"
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -27,7 +32,67 @@ public class StringExtensionsTests
     [Fact]
     public void LargestProduct()
     {
-        var result = _grid.Product();
+        var result = _grid.LargestProduct();
         Assert.Equal(70600674, result);
+    }
+
+    [Fact]
+    public void ParseGrid_Returns20x20()
+    {
+        var result = _grid.ParseGrid();
+        Assert.Equal(20, result.GetLength(0));
+        Assert.Equal(20, result.GetLength(1));
+    }
+
+     [Fact]
+    public void CalculateMaxProduct_ReturnsMaxProduct()
+    {       
+        var result = _smallGrid.LargestProduct();
+        Assert.Equal(16 * 15 * 14 * 13, result);
+    }
+
+    [Fact]
+    public void CalculateHorizontalProduct_ReturnsProduct()
+    {
+        var grid=_smallGrid.ParseGrid();
+        var product =  grid.CalculateHorizontalProduct(0, 0, 4);
+        Assert.Equal(1 * 2 * 3 * 4, product);
+        product = grid.CalculateHorizontalProduct( 1, 0, 4);
+        Assert.Equal(5 * 6 * 7 * 8, product);
+        product = grid.CalculateHorizontalProduct( 2, 0, 4);
+        Assert.Equal(9 * 10 * 11 * 12, product);
+        product = grid.CalculateHorizontalProduct( 3, 0, 4);
+        Assert.Equal(13 * 14 * 15 * 16, product);
+
+    }
+
+    [Fact]
+    public void CalculateVerticalProduct_ReturnsProduct()
+    {
+        var grid = _smallGrid.ParseGrid();
+        var product = grid.CalculateVerticalProduct( 0, 0, 4);
+        Assert.Equal(1 * 5 * 9 * 13, product);
+        product = grid.CalculateVerticalProduct( 0, 1, 4);
+        Assert.Equal(2 * 6 * 10 * 14, product);
+        product = grid.CalculateVerticalProduct( 0, 2, 4);
+        Assert.Equal(3 * 7 * 11 * 15, product);
+        product = grid.CalculateVerticalProduct( 0, 3, 4);
+        Assert.Equal(4 * 8 * 12 * 16, product);
+    }
+
+    [Fact]
+    public void CalculateDiagonalRightProduct_ReturnsProduct()
+    {
+        var grid = _smallGrid.ParseGrid();
+        var product = grid.CalculateDiagonalRightProduct( 0, 0, 4);
+        Assert.Equal(1 * 6 * 11 * 16, product);
+    }
+
+    [Fact]
+    public void CalculateDiagonalLeftProduct_ReturnsProduct()
+    {
+        var grid = _smallGrid.ParseGrid();
+        var product = grid.CalculateDiagonalLeftProduct( 0, 0, 4);
+        Assert.Equal(4 * 7 * 10 * 13, product);
     }
 }

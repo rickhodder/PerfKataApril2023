@@ -8,6 +8,11 @@ namespace PerfKataApril2023.Benchmarks;
 [MemoryDiagnoser]
 public class Benchmarks
 {
+    private const string _smallGrid = @"1 2 3 4
+    5 6 7 8
+    9 10 11 12
+    13 14 15 16";
+
     private const string _grid = @"
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -30,16 +35,37 @@ public class Benchmarks
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48";
 
-    [Benchmark(Baseline = true)]
-    public int Scenario1()
+     [Benchmark(Baseline = true)]
+     public int LargeGrid_LargestProduct()
+     {
+         return _grid.LargestProduct();
+     }
+
+
+
+    [Benchmark]
+     public int SmallGrid_LargestProduct()
+     {
+         return _smallGrid.LargestProduct();
+     }
+
+    [Benchmark]
+    public int[,] LargeGrid_ParseGrid()
     {
-        return _grid.LargestProduct();
+        return _grid.ParseGrid();
     }
 
     [Benchmark]
-    public int Scenario2()
+    public int[,] SmallGrid_ParseGrid()
     {
-        return int.MaxValue();
+        return _smallGrid.ParseGrid();
     }
+
+
+    // [Benchmark]
+    // public int Scenario2()
+    // {
+    //     return int.MaxValue;
+    // }
 }
 
