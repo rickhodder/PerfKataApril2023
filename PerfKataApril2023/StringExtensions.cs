@@ -33,22 +33,25 @@ public static class StringExtensions
     {
         var grid = ParseGrid(gridContents);
         var result = 0;
-        for (int row = 0; row < grid.GetLength(0); row++)
-            for (int column = 0; column < grid.GetLength(1); column++)
+        var rows=grid.GetLength(0);
+        var columns=grid.GetLength(1);
+
+        for (int row = 0; row < rows; row++)
+            for (int column = 0; column < columns; column++)
             {          
-                var enoughColumns = column < (grid.GetLength(1) - GROUP_SIZE + 1);
-                var enoughRows = row < (grid.GetLength(0) - GROUP_SIZE + 1);
+                var enoughColumns = column < (columns - GROUP_SIZE + 1);
+                var enoughRows = row < (rows - GROUP_SIZE + 1);
 
                 if (enoughColumns)
-                    result = Math.Max(result, CalculateHorizontalProduct(grid, row, column, GROUP_SIZE));
+                    result = Math.Max(result, grid.CalculateHorizontalProduct(row, column, GROUP_SIZE));
 
                 if (enoughRows) 
-                    result = Math.Max(result, CalculateVerticalProduct(grid, row, column, GROUP_SIZE));
+                    result = Math.Max(result, grid.CalculateVerticalProduct(row, column, GROUP_SIZE));
 
                 if (enoughColumns && enoughRows) 
                 {
-                    result = Math.Max(result, CalculateDiagonalRightProduct(grid, row, column, GROUP_SIZE));
-                    result = Math.Max(result, CalculateDiagonalLeftProduct(grid, row, column, GROUP_SIZE));
+                    result = Math.Max(result, grid.CalculateDiagonalRightProduct(row, column, GROUP_SIZE));
+                    result = Math.Max(result, grid.CalculateDiagonalLeftProduct( row, column, GROUP_SIZE));
                 }
             }
         return result;
