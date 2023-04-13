@@ -43,11 +43,11 @@ public class Benchmarks
 
 
 
-    [Benchmark]
-     public int SmallGrid_LargestProduct()
-     {
-         return _smallGrid.LargestProduct();
-     }
+    // [Benchmark]
+    //  public int SmallGrid_LargestProduct()
+    //  {
+    //      return _smallGrid.LargestProduct();
+    //  }
 
     [Benchmark]
     public int[,] LargeGrid_ParseGrid()
@@ -55,11 +55,17 @@ public class Benchmarks
         return _grid.ParseGrid();
     }
 
-    [Benchmark]
-    public int[,] SmallGrid_ParseGrid()
-    {
-        return _smallGrid.ParseGrid();
-    }
+    // [Benchmark]
+    // public int[,] ParseGrid()
+    // {
+    //     return _grid.ParseGrid();
+    // }
+
+    // [Benchmark(Baseline=true)]
+    // public int[,] Other_ParseGrid()
+    // {
+    //     return _grid.OtherParseGrid();
+    // }
 
 
     // [Benchmark]
